@@ -12,9 +12,7 @@ RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main" > /etc
 RUN wget --quiet --no-check-certificate -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 RUN apt-get -qq update
 RUN rm /usr/sbin/policy-rc.d
-RUN apt-get -yqq install postgresql-9.3 postgresql-contrib-9.3 postgresql-9.3-postgis-2.1 \
-  && echo "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" | su postgres -c psql \
-  && su postgres -c "createdb -O docker docker"
+RUN apt-get -yqq install postgresql-9.3 postgresql-contrib-9.3 postgresql-9.3-postgis-2.1
 
 ADD supervisor.conf /etc/supervisor/conf.d/postgresql.conf
 ADD postgresql.conf /etc/postgresql/9.3/main/postgresql.conf
